@@ -12,6 +12,7 @@ library(tidyverse)
 library(broom)
 library(Stat2Data)
 library(tidymodels)
+library(dplyr)
 ```
 
 ```{r read-data}
@@ -26,3 +27,34 @@ Through our project, we hope to predict grade level proficiency of a school acro
 Our EDA will include a plot of percentages of each demographic that is proficient to illustrate disparities and box plots categorized by school size.
 
 Our hypothesis is that schools with higher percentages of white students will, on average, have a greater percentage of students that are grade level proficient. In addition, we hypothesize that a larger school will, on average, have a greater variability in students that are grade level proficient.
+
+```{r clean-data}
+
+nc_school <- setnames(nc_school, old = c('District Name', 'School Code', 'School Name', 
+'SBE District', 'Subject', 'Standard (CCR - Level 4 & 5, GLP - Level 3 & Above)',
+'Percentage of: All Students', 'Percentage of: Female', 'Percentage of:  Male', 
+'Percentage of: American Indian', 'Percentage of: Asian', 'Percentage of: Black',
+'Percentage of: Hispanic', 'Percentage of: Two or More Races', 
+'Percentage of:  White', 'Percentage of: EDS', 'Percentage of: LEP', 
+'Percentage of: SWD', 'Percentage of: AIG', 'Number of: All Students', 
+'Number of: Female', 'Number of:  Male', 'Number of: American Indian', 
+'Number of: Asian', 'Number of: Black','Number of: Hispanic', 
+'Number of: Two or More Races', 'Number of:  White', 'Number of: EDS', 
+'Number of: LEP', 'Number of: SWD', 'Number of: AIG'), new = c("district", 
+"school_code", "school_name", "SBE", "subject", "standard", "all", "female", 
+"male", "indigenous", "asian", "black_", "hispanic", "multi", "white_", "EDS", 
+"LEP", "SWD", "AIG", "total_all", "total_female", "total_male", 
+"total_indigenous", "total_asian", "total_black", "total_hispanic", 
+"total_multi", "total_white", "total_EDS", "total_LEP", "total_SWD", 
+"total_AIG"), skip_absent=TRUE)
+
+nc_school <- nc_school |> 
+  mutate(across(.cols = -c(1, 2, 3, 4, 5, 6), .fns = as.numeric))
+
+nc_school <- nc_school |>
+  filter(!district == "State of North Carolina", subject == "All EOG/EOC Subjects",
+         standard == "Grade Level Proficient")
+  
+nc_school <- mutate_all(nc_school, ~replace(., is.na(.), 0))
+```
+
