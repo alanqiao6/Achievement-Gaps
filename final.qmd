@@ -84,7 +84,8 @@ nc_school <- nc_school |>
     white_pop = total_white/(white_*.01),
     EDS_pop = total_EDS/(EDS*.01),
     LEP_pop = total_LEP/(LEP*.01),
-    SWD_pop = total_SWD/(SWD*.01)
+    SWD_pop = total_SWD/(SWD*.01),
+    AIG_pop = total_AIG/(AIG*.01)
     )
 ```
 
@@ -94,7 +95,7 @@ no AIG
 
 ```{r model, echo = F}
 
-schools <- lm(all ~ all_pop + female_pop + male_pop + asian_pop + black_pop + hispanic_pop + multi_pop + white_pop + EDS_pop + LEP_pop + SWD_pop, data = nc_school)
+schools <- lm(all ~ all_pop + female_pop + male_pop + asian_pop + black_pop + hispanic_pop + multi_pop + white_pop + EDS_pop + LEP_pop + SWD_pop + AIG_pop, data = nc_school)
 
 summary(schools)
 ```
