@@ -57,4 +57,3 @@ nc_school <- nc_school |>
   
 nc_school <- mutate_all(nc_school, ~replace(., is.na(.), 0))
 ```
-
