@@ -60,9 +60,6 @@ nc_school <- nc_school |>
   mutate(across(everything(), ~ if_else(. == "<10", "5", .)))
 
 nc_school <- nc_school |> 
-  mutate(case_when(total_asian == "10" ~ "5"))
-
-nc_school <- nc_school |> 
   mutate(across(.cols = -c(1, 2, 3, 4, 5, 6), .fns = as.numeric))
 
 nc_school <- nc_school |>
@@ -99,5 +96,5 @@ no AIG
 
 schools <- lm(all ~ all_pop + female_pop + male_pop + asian_pop + black_pop + hispanic_pop + multi_pop + white_pop + EDS_pop + LEP_pop + SWD_pop, data = nc_school)
 
-tidy(schools)
+summary(schools)
 ```
