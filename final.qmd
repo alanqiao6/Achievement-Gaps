@@ -49,6 +49,19 @@ nc_school <- setnames(nc_school, old = c('District Name', 'School Code', 'School
 "total_multi", "total_white", "total_EDS", "total_LEP", "total_SWD", 
 "total_AIG"), skip_absent=TRUE)
 
+
+nc_school <- nc_school |>
+  mutate(across(everything(), ~ if_else(. == ">95", "97.5", .)))
+
+nc_school <- nc_school |>
+  mutate(across(everything(), ~ if_else(. == "<5", "2.5", .)))
+
+nc_school <- nc_school |>
+  mutate(across(everything(), ~ if_else(. == "<10", "5", .)))
+
+nc_school <- nc_school |> 
+  mutate(case_when(total_asian == "10" ~ "5"))
+
 nc_school <- nc_school |> 
   mutate(across(.cols = -c(1, 2, 3, 4, 5, 6), .fns = as.numeric))
 
@@ -64,20 +77,27 @@ nc_school <- nc_school |>
 
 nc_school <- nc_school |>
   mutate(
-    all_real = total_all/(all*.01),
-    female_real = total_female/(female*.01),
-    male_real = total_male/(male*.01),
-    asian_real = total_asian/(asian*.01),
-    black_real = total_black/(black_*.01),
-    hispanic_real = total_hispanic/(hispanic*.01),
-    multi_real = total_multi/(multi*.01),
-    white_real = total_white/(white_*.01),
-    EDS_real = total_EDS/(EDS*.01),
-    LEP_real = total_LEP/(LEP*.01),
-    SWD_real = total_SWD/(SWD*.01)
+    all_pop = total_all/(all*.01),
+    female_pop = total_female/(female*.01),
+    male_pop = total_male/(male*.01),
+    asian_pop = total_asian/(asian*.01),
+    black_pop = total_black/(black_*.01),
+    hispanic_pop = total_hispanic/(hispanic*.01),
+    multi_pop = total_multi/(multi*.01),
+    white_pop = total_white/(white_*.01),
+    EDS_pop = total_EDS/(EDS*.01),
+    LEP_pop = total_LEP/(LEP*.01),
+    SWD_pop = total_SWD/(SWD*.01)
     )
 ```
 
 no american indian
 
 no AIG
+
+```{r model, echo = F}
+
+schools <- lm(all ~ all_pop + female_pop + male_pop + asian_pop + black_pop + hispanic_pop + multi_pop + white_pop + EDS_pop + LEP_pop + SWD_pop, data = nc_school)
+
+tidy(schools)
+```
