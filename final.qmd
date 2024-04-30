@@ -6,16 +6,17 @@ format: pdf
 
 ## Read in the data
 
-```{r load-libraries, message = F}
+```{r load-libraries, message = F, echo = F}
 library(readxl)
 library(tidyverse)
 library(broom)
 library(Stat2Data)
 library(tidymodels)
 library(dplyr)
+library(data.table)
 ```
 
-```{r read-data}
+```{r read-data, echo = F}
 
 nc_school <- read_excel("NC_School_Performance.xlsx")
 ```
@@ -28,7 +29,7 @@ Our EDA will include a plot of percentages of each demographic that is proficien
 
 Our hypothesis is that schools with higher percentages of white students will, on average, have a greater percentage of students that are grade level proficient. In addition, we hypothesize that a larger school will, on average, have a greater variability in students that are grade level proficient.
 
-```{r clean-data}
+```{r clean-data, warning = F, echo = F}
 
 nc_school <- setnames(nc_school, old = c('District Name', 'School Code', 'School Name', 
 'SBE District', 'Subject', 'Standard (CCR - Level 4 & 5, GLP - Level 3 & Above)',
@@ -48,12 +49,61 @@ nc_school <- setnames(nc_school, old = c('District Name', 'School Code', 'School
 "total_multi", "total_white", "total_EDS", "total_LEP", "total_SWD", 
 "total_AIG"), skip_absent=TRUE)
 
+
+nc_school <- nc_school |>
+  mutate(across(everything(), ~ if_else(. == ">95", "97.5", .)))
+
+nc_school <- nc_school |>
+  mutate(across(everything(), ~ if_else(. == "<5", "2.5", .)))
+
+nc_school <- nc_school |>
+  mutate(across(everything(), ~ if_else(. == "<10", "5", .)))
+
+nc_school <- nc_school |> 
+  mutate(case_when(total_asian == "10" ~ "5"))
+
 nc_school <- nc_school |> 
   mutate(across(.cols = -c(1, 2, 3, 4, 5, 6), .fns = as.numeric))
 
 nc_school <- nc_school |>
   filter(!district == "State of North Carolina", subject == "All EOG/EOC Subjects",
          standard == "Grade Level Proficient")
+<<<<<<< HEAD
   
 nc_school <- mutate_all(nc_school, ~replace(., is.na(.), 0))
 ```
+=======
+
+nc_school <- nc_school |>
+  filter(!all == 0)
+```
+
+```{r calculate-predictors, echo = F}
+
+nc_school <- nc_school |>
+  mutate(
+    all_pop = total_all/(all*.01),
+    female_pop = total_female/(female*.01),
+    male_pop = total_male/(male*.01),
+    asian_pop = total_asian/(asian*.01),
+    black_pop = total_black/(black_*.01),
+    hispanic_pop = total_hispanic/(hispanic*.01),
+    multi_pop = total_multi/(multi*.01),
+    white_pop = total_white/(white_*.01),
+    EDS_pop = total_EDS/(EDS*.01),
+    LEP_pop = total_LEP/(LEP*.01),
+    SWD_pop = total_SWD/(SWD*.01)
+    )
+```
+
+no american indian
+
+no AIG
+
+```{r model, echo = F}
+
+schools <- lm(all ~ all_pop + female_pop + male_pop + asian_pop + black_pop + hispanic_pop + multi_pop + white_pop + EDS_pop + LEP_pop + SWD_pop, data = nc_school)
+
+tidy(schools)
+```
+>>>>>>> 88b86e5784f7aa586b5ce65c491772720b53ce20
