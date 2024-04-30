@@ -68,11 +68,6 @@ nc_school <- nc_school |>
 nc_school <- nc_school |>
   filter(!district == "State of North Carolina", subject == "All EOG/EOC Subjects",
          standard == "Grade Level Proficient")
-<<<<<<< HEAD
-  
-nc_school <- mutate_all(nc_school, ~replace(., is.na(.), 0))
-```
-=======
 
 nc_school <- nc_school |>
   filter(!all == 0)
@@ -106,4 +101,3 @@ schools <- lm(all ~ all_pop + female_pop + male_pop + asian_pop + black_pop + hi
 
 tidy(schools)
 ```
->>>>>>> 88b86e5784f7aa586b5ce65c491772720b53ce20
