@@ -87,6 +87,21 @@ nc_school <- nc_school |>
     SWD_pop = total_SWD/(SWD*.01),
     AIG_pop = total_AIG/(AIG*.01)
     )
+
+nc_school <- nc_school |>
+  mutate(
+    female_dem = female_pop/all_pop * 100,
+    male_dem = male_pop/all_pop * 100,
+    asian_dem = asian_pop/all_pop * 100,
+    black_dem = black_pop/all_pop * 100,
+    hispanic_dem = hispanic_pop/all_pop * 100,
+    multi_dem = multi_pop/all_pop * 100,
+    white_dem = white_pop/all_pop * 100,
+    EDS_dem = EDS_pop/all_pop * 100,
+    LEP_dem = LEP_pop/all_pop * 100,
+    SWD_dem = SWD_pop/all_pop * 100,
+    AIG_dem = AIG_pop/all_pop * 100
+    )
 ```
 
 no american indian
@@ -95,7 +110,7 @@ no AIG
 
 ```{r model, echo = F}
 
-schools <- lm(all ~ all_pop + female_pop + male_pop + asian_pop + black_pop + hispanic_pop + multi_pop + white_pop + EDS_pop + LEP_pop + SWD_pop + AIG_pop, data = nc_school)
+schools <- lm(all ~ all_pop + female_dem + male_dem + asian_dem + black_dem + hispanic_dem + multi_dem + white_dem + EDS_dem + LEP_dem + SWD_dem + AIG_dem, data = nc_school)
 
 summary(schools)
 ```
