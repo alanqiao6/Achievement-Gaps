@@ -219,3 +219,41 @@ However, when looking at the other individual racial demographics, the model doe
 For students that are economically disadvantaged, students with limited English proficiency, and students with disabilities, our hypothesis is supported as the overall grade level proficiency is expected to decrease with an increase in each of those demographics.
 
 With an adjusted R-squared value of 0.8184, our model 81.84% of variability in the outcome variable can be explained by the model, while adjusting for the number of predictors. This means that our model is considered to be a good fit to predict the grade level proficiency of NC public schools.
+
+Discussion:
+Association between historical redlining and neighborhood deprivation in North Carolina 
+
+As the p-value of the coefficient correlated to white students is higher than 0.05, our hypothesis that the  higher the percentage of white students in a school’s student body, the higher the overall grade level proficiency of the school is supported. This suggests the legacy of institutional racism and segregation still exist. As people of color, particularly Black individuals, were prohibited access to the same resources and schooling as white Americans, achievement gaps developed between white students and students of color. The model suggests these achievement gaps are present in North Carolina schools. White students are predicted to raise a school’s grade level proficiency, depicting the advantage in education white students historically have compared to students of color. 
+
+Our model suggested that the same pattern can be found in Asian and Hispanic students. This does not support our hypothesis. However, it raises new and interesting questions that can expand the scope of the research done in this project. Brown v. Board of Education, as discussed in the introduction, is typically associated with the integration of Black students into public schools. Nuances between different races are rarely discussed in existing literature. Perhaps there are cultural influences that influence performance of Asian and Hispanic students in North Carolina public schools. 
+
+
+As for the p-values that are not statistically significant, this leads to no conclusion on the relationship between grade level proficiency and Black students and if a school has a minority, moderate, or majority percentage of white students. Our hypothesis is not supported. This calls for a more in-depth analysis of these two specific predictors. 
+
+Lastly, the statistically significant p-values for the non-racial minority students– students that are economically disadvantaged, students with limited English proficiency, and students with disabilities– support our initial hypothesis. This supports our hypothesis that an increase in these demographics predicts a decrease in grade level proficiency. Most of our motivation, as discussed in the introduction, centers around racial minorities. Similar to the findings on Asian and Hispanic students, this calls for an expanded research question. 
+
+
+Because we implemented a complete case analysis, some observations were not included in the model, and the model could have not been comprehensive of all schools and their demographics. This could have led to a smaller and less diverse dataset. Since the school year of 2016-2017, much has occurred since then, politically and on a world scale. Because of this, our model may not be representative of how North Carolina schools are faring currently. In addition, this dataset does not include all schools in North Carolina, it only includes public schools. This could have impacted our research question. In the future, we should attempt to gather data from all types of schools in North Carolina to gather a more comprehensive and diverse dataset.
+
+
+Conclusion:
+Based on our model, it is predicted that an increase in the percentage of white students, Asian students, and Hispanic students in a school’s student population increases the school’s grade level proficiency. An increase in the percentage of students that are economically disadvantaged, students with limited English proficiency, and students with disabilities decreases the school’s grade level proficiency. There is no relationship between the percentage of Black students and schools that are either white minority, moderate, or majority and grade level proficiency. 
+
+Segregation and institutional racism are present today, but based on our findings with Black, Asian, and Hispanic students, it may manifest in ways not initially hypothesized and thought about in this project. Our findings indicate nuances amongst specific racial minorities. However, notably, non-racial minorities decrease grade level proficiency. For future work, it is important to examine intersectionality between racial minorities and being economically disadvantaged, having limited English proficiency, and having disabilities. Looking at intersections may help further understand how student demographics impact grade level proficiency. 
+
+
+References
+
+Wilkinson, J. H. (1979). From Brown to Bakke: The Supreme Court and school integration: 1945-1978 
+(pp. 78-128). Oxford Academic.
+
+Jimenez ,M., Lobdell, D.T., Krajewski, A.K., Rappazzo, K.M., Messer L.C., & Luben T.J. (2022). Association between historical redlining and neighborhood deprivation in North Carolina. ISEE Conference Abstracts, 2022(1). https://ehp.niehs.nih.gov/doi/abs/10.1289/isee.2022.P-0253 
+
+North Carolina Department of Public Instruction (2023). NC School Performance (2016-2017). 
+Durham Open Data. 
+https://live-durhamnc.opendata.arcgis.com/documents/4681f6a2614344a496a4bea3e6f8b588/about 
+
+
+
+
+
