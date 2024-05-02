@@ -140,7 +140,6 @@ schools <- lm(all ~ female_dem + male_dem + asian_dem + black_dem + hispanic_dem
 summary(schools)
 ```
 
-
 ```{r}
 
 nc_school1 <- nc_school1 |>
