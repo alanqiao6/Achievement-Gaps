@@ -30,14 +30,13 @@ Our EDA will include a plot of percentages of each demographic that is proficien
 
 Our hypothesis is that schools with higher percentages of white students will, on average, have a greater percentage of students that are grade level proficient. In addition, we hypothesize that a larger school will, on average, have a greater variability in students that are grade level proficient.
 
-## Data 
+## Data
 
-To investigate our research question, we used the dataset NC School Performance (2016 - 2017). This dataset is taken from Durham Open Data, a program managed jointly by the City of Durham's Technology Solutions Department and the County of Durham's Information Services & Technology Department to make data open and free to everyone. Durham Open Data collected this data from the North Carolina Department of Public Instruction and manipulated the annual testing data of public schools in North Carolina from the 2016-2017 school year. The main purpose of this dataset is to record the percentage of students of various races and other factors described that are grade level proficient and college/career ready. In this dataset, there are 32 variables and 85,766 observations separated by school, subject, and standard. The variable Standard was separated into Grade Level Proficient and College and Career Ready, determined by students’ test scores of Level 4 & 5 on the CCR for college/career readiness and Level 3 & Above for grade level proficiency. The variable subject included all EOG/EOC Subjects and individual EOC Subjects along with the Math, Science, and Reading EOG and EOC assessments for each grade. To narrow the dataset down and compare schools, we chose to filter the dataset to view scores of the observations that were determined by the subject of all EOG/EOC Subjects and the standard of Grade Level Proficient. 
+To investigate our research question, we used the dataset NC School Performance (2016 - 2017). This dataset is taken from Durham Open Data, a program managed jointly by the City of Durham's Technology Solutions Department and the County of Durham's Information Services & Technology Department to make data open and free to everyone. Durham Open Data collected this data from the North Carolina Department of Public Instruction and manipulated the annual testing data of public schools in North Carolina from the 2016-2017 school year. The main purpose of this dataset is to record the percentage of students of various races and other factors described that are grade level proficient and college/career ready. In this dataset, there are 32 variables and 85,766 observations separated by school, subject, and standard. The variable Standard was separated into Grade Level Proficient and College and Career Ready, determined by students' test scores of Level 4 & 5 on the CCR for college/career readiness and Level 3 & Above for grade level proficiency. The variable subject included all EOG/EOC Subjects and individual EOC Subjects along with the Math, Science, and Reading EOG and EOC assessments for each grade. To narrow the dataset down and compare schools, we chose to filter the dataset to view scores of the observations that were determined by the subject of all EOG/EOC Subjects and the standard of Grade Level Proficient.
 
-The dataset presented percentages that are greater than 95 as “>95” and percentages less than 5 as “<5.” To make sure our model does not skip over these observations, we manipulated the dataset to change these percentages to 97.5 and 2.5, respectively, as they are the averages of 95-100 and 0-5. Also, in the dataset, if the number of students that met a condition were less than 10, it would just display “<10.” We then manipulated the dataset again to change these counts to 5, the average of 0 and 10. In the dataset, a * indicates a school does not have tested grades/sufficient data for reporting, and these were changed to NA’s in our model. Rows that did not have sufficient data for the 'All Students' subgroup are excluded from this file. In addition, we didn’t include the demographic of American Indian in our model, as there was too little data present in the file because of how small their population is. Finally, we filtered out the State of North Carolina, which was listed as a school, as this was the average of all the schools present and we wanted to investigate individual school demographics.
+The dataset presented percentages that are greater than 95 as "\>95" and percentages less than 5 as "\<5." To make sure our model does not skip over these observations, we manipulated the dataset to change these percentages to 97.5 and 2.5, respectively, as they are the averages of 95-100 and 0-5. Also, in the dataset, if the number of students that met a condition were less than 10, it would just display "\<10." We then manipulated the dataset again to change these counts to 5, the average of 0 and 10. In the dataset, a \* indicates a school does not have tested grades/sufficient data for reporting, and these were changed to NA's in our model. Rows that did not have sufficient data for the 'All Students' subgroup are excluded from this file. In addition, we didn't include the demographic of American Indian in our model, as there was too little data present in the file because of how small their population is. Finally, we filtered out the State of North Carolina, which was listed as a school, as this was the average of all the schools present and we wanted to investigate individual school demographics.
 
 In our manipulated dataset, to look at and compare an overall assessment for all public NC schools, we included the percentage and number of students that are grade level proficient in all EOG/EOC subjects for all, female, male, American Indian, Asian, Black, two or more races, white, economically disadvantaged (EDS), limited English proficient, disabled, and academically or intellectually gifted students for each school.
-
 
 ```{r clean-data, warning = F, echo = F}
 
@@ -138,8 +137,6 @@ nc_school <- nc_school |>
   )
 ```
 
-
-
 ```{r model, echo = F}
 
 schools <- lm(all ~ female_dem + male_dem + asian_dem + black_dem + hispanic_dem + white_dem + EDS_dem + LEP_dem + SWD_dem + AIG_dem + white_comp, data = nc_school)
@@ -147,18 +144,21 @@ schools <- lm(all ~ female_dem + male_dem + asian_dem + black_dem + hispanic_dem
 summary(schools)
 ```
 
-<<<<<<< HEAD
-```{r}
-=======
-
 ```{r barplot}
->>>>>>> 4f92ad599f4d2684452aef8568b5787c074540ee
 
 nc_school1 <- nc_school1 |>
-  filter(variable %in% c("all", "female", "male", "asian", "black_", "hispanic", "white_", "EDS", "LEP", "SWD", "AIG"))
+  filter(variable %in% c("female", "male", "asian", "black_", "hispanic", "white_", "EDS", "LEP", "SWD"))
 
 ggplot(nc_school1, aes(x = variable, y = value)) +
-  geom_bar(stat = "identity")
+  geom_bar(stat = "identity") +
+  labs(
+    x = "Demographic",
+    y = "NC Grade Proficiency Percentage",
+    title = "Achievement Gaps in NC Grade Level Proficiency",
+    subtitle = "Glaring Gaps for Black, EDS, LEP, and SWD students"
+  ) +
+  geom_hline(yintercept = 4.407, color = "red") +
+  geom_text(aes(label = "Average NC Grade Proficiency", y = 4.4, x = 2.5), vjust = -0.5, color = "red")
 ```
 
 ```{r residuals}
@@ -174,7 +174,6 @@ schools_aug |>
        title = "Fairly Random Scatter in Residual Plot")
 ```
 
-
 ```{r QQ-plot}
 schools_aug |>
   ggplot(
@@ -185,4 +184,3 @@ schools_aug |>
        y = "Sample quantiles",
        title = "Low Deviation for QQ Plot")
 ```
-
