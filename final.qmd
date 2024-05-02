@@ -156,8 +156,6 @@ In our manipulated dataset, to look at and compare an overall assessment for all
 ```{r model, echo = F}
 
 schools <- lm(all ~ female_dem + male_dem + asian_dem + black_dem + hispanic_dem + white_dem + EDS_dem + LEP_dem + SWD_dem + AIG_dem + white_comp, data = nc_school)
-
-summary(schools)
 ```
 
 
@@ -184,3 +182,40 @@ schools_aug |>
        y = "Sample quantiles",
        title = "Low Deviation for QQ Plot")
 ```
+
+```{r model-output}
+
+schools <- lm(all ~ female_dem + male_dem + asian_dem + black_dem + hispanic_dem + white_dem + EDS_dem + LEP_dem + SWD_dem + AIG_dem + white_comp, data = nc_school)
+
+summary(schools)
+```
+
+## Findings 
+Based on our model coefficients, it is expected that on average: 
+For every one percent increase of white students in a school’s student body the percentage of students that are grade level proficient increases by 0.17%, all else held constant.
+For every one percent increase of Black students in a school’s student body, the percentage of students that are grade level proficient decreases by 0.0006%, all else held constant. 
+For every one percent increase of Asian students in a school’s student body, the percentage of students that are grade level proficient increases by 0.19%, all else held constant. 
+For every one percent increase of Hispanic students in a school’s student body, the percentage of students that are grade level proficient increases by 0.12%, all else held constant
+For every one percent increase of economically disadvantaged students in a school’s student body, the percentage of students that are grade level proficient decreases by 0.24%, all else held constant. 
+For every one percent increase of students with limited English proficiency in a school’s student body, the percentage of students that are grade level proficient decreases by 0.05%, all else held constant. 
+For every one percent increase of students with disabilities in a school’s student body, the percentage of students that are grade level proficient decreases by 0.08%, all else held constant. 
+The expected difference in percentage of grade level proficient students between schools with a white student body majority and a midlevel white student body is 2.37%, all else held constant. 
+This means that the expected difference between a school with a comparatively mid student of color percentage compared to a school with a comparatively low student of color percentage is 2.37%, all else held constant.
+White minority: The expected difference in percentage of grade level proficient students between schools with a white student body majority and a white student body minority is 0.19%, all else held constant. 
+This means that the expected difference between a school with a comparatively high student of color percentage compared to a school with a comparatively low student of color percentage is 18.60%, all else held constant.
+
+For the predictors for demographics of white students, Asian students, Hispanic students, economically disadvantaged students, and students with limited English proficiency, the p-values are less than our discernibility level of 0.05. Thus, this data does provide convincing evidence that there is a linear relationship between overall grade level proficiency and each of the demographics listed above.
+
+For black students, the p-value is greater than our discernibility level of 0.05, meaning this data does not provide convincing evidence that there is a linear relationship between overall grade level proficiency and black students in a school.
+
+When comparing the levels of percentages of white students and students of color between a school, one of the p-values of the categorical predictor is greater than 0.05. Thus, this data does not provide convincing evidence that there is a linear relationship between overall grade level proficiency and levels of school populations for students of color.
+
+The higher the percentage of white students in a school’s student body, the higher the overall grade level proficiency of the school. Conversely, the higher the percentage of students of color, economically disadvantaged students, students with limited English proficiency, and students with disabilities, the lower the grade level proficiency of the school. 
+
+Our model supports our hypothesis that the higher the percentage of white students in a school’s student body, the higher the overall grade level proficiency of the school. Looking at our results, as the demographic of white students increases, the grade level proficiency of a school increases by 0.17%.
+
+However, when looking at the other individual racial demographics, the model does not support our hypothesis that higher percentages of students of color are associated with lower grade level proficiency in a school. As the percentage of Asian and Hispanic students increase, the grade level proficiency of a school increases. For Black students, we cannot draw conclusions as the relationship between grade level proficiency and Black students are not statistically significant. When looking at the relationship between the grade level proficiency of a school and level of white students, and conversely the students of color, compared across schools of North Carolina, we also cannot draw conclusions as the relationship is not statistically significant
+
+For students that are economically disadvantaged, students with limited English proficiency, and students with disabilities, our hypothesis is supported as the overall grade level proficiency is expected to decrease with an increase in each of those demographics.
+
+With an adjusted R-squared value of 0.8184, our model 81.84% of variability in the outcome variable can be explained by the model, while adjusting for the number of predictors. This means that our model is considered to be a good fit to predict the grade level proficiency of NC public schools.
