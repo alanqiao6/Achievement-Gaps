@@ -141,7 +141,7 @@ summary(schools)
 ```
 
 
-```{r}
+```{r barplot}
 
 nc_school1 <- nc_school1 |>
   filter(variable %in% c("all", "female", "male", "asian", "black_", "hispanic", "white_", "EDS", "LEP", "SWD", "AIG"))
@@ -149,3 +149,29 @@ nc_school1 <- nc_school1 |>
 ggplot(nc_school1, aes(x = variable, y = value)) +
   geom_bar(stat = "identity")
 ```
+
+```{r residuals}
+
+schools_aug <- augment(schools)
+schools_aug |>
+  ggplot(
+    aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0, color = "darkred") +
+  labs(x = "Fitted (predicted) value",
+       y = "Residuals",
+       title = "Fairly Random Scatter in Residual Plot")
+```
+
+
+```{r QQ-plot}
+schools_aug |>
+  ggplot(
+    aes(sample= .resid)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(x = "Theoretical Quantiles",
+       y = "Sample quantiles",
+       title = "Low Deviation for QQ Plot")
+```
+
