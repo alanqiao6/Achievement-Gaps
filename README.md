@@ -1,7 +1,7 @@
 # Analyzing Achievement Gaps in North Carolina
 
-In this project, we expanded upon Dr. Roslyn Mickelson’s work in The Cumulative
-Disadvantages of First- and Second-Generation Segregation for Middle School Achievement,
+In this project, we expanded upon Dr. Roslyn Mickelson’s work in _The Cumulative
+Disadvantages of First- and Second-Generation Segregation for Middle School Achievement_,
 which found that a student attending a school with a racial imbalance towards a Black population is more likely to be placed in a lower academic ‘track’, which Charlotte schools used to
 categorize students based on grade level proficiency.
 
